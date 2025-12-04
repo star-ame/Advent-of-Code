@@ -1,0 +1,10 @@
+{
+  "languages": {
+    "Plain Text": {
+      "format_on_save": "off",
+      "auto_indent_on_paste": false,
+      "auto_indent": false,
+      "ensure_final_newline_on_save": false
+    }
+  }
+}
