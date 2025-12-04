@@ -67,24 +67,6 @@ fn part2(input: &str) -> Result<i16, String> {
         .zero_count)
 }
 
-// fn teste(curr: i16, rot: i16) -> State {
-//     if rot > 0 {
-//         let new_curr = curr + rot;
-//         let zero_count = new_curr / 100;
-//         let new_curr = new_curr % 100;
-
-//         State {
-//             cur_pos: 0,
-//             zero_count: 0,
-//         }
-//     }
-
-//     State {
-//         cur_pos: 0,
-//         zero_count: 0,
-//     }
-// }
-
 #[derive(Debug)]
 struct State {
     cur_pos: i16,
