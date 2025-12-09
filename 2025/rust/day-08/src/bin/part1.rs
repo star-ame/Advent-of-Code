@@ -40,17 +40,6 @@ fn part1(input: &str, connections: usize) -> Result<String, String> {
     nearests.sort_by(|(_, _, d1), (_, _, d2)| d1.total_cmp(d2));
     nearests.dedup();
 
-    let d = nearests
-        .iter()
-        .map(|(a, b, d)| {
-            (
-                coords[*a].map(|f| f.to_string()).join(","),
-                coords[*b].map(|f| f.to_string()).join(","),
-                d,
-            )
-        })
-        .collect::<Vec<_>>();
-
     let mut circuits: Vec<HashSet<usize>> = Vec::new();
 
     for (p1, p2, _) in nearests.iter().take(connections) {
