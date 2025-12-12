@@ -51,13 +51,9 @@ fn part2(input: &str) -> Result<String, String> {
             let Some(source_node) = nodes.get_mut(source_str) else {
                 continue;
             };
-            // println!("{} -> {}", source_str, item);
             source_node.outgoing_references -= 1;
             if source_node.part_of_fft_chain && source_node.part_of_dac_chain {
-                println!("ok: {}", source_str);
                 source_node.count_to_out += dest_count;
-            } else {
-                println!("no: {}", source_str);
             }
 
             if source_node.outgoing_references == 0 {
