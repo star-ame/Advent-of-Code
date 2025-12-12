@@ -1,4 +1,4 @@
-use std::collections::{HashMap, VecDeque};
+use std::collections::{HashMap, HashSet, VecDeque};
 
 fn main() {
     let input = include_str!("../../input.txt");
@@ -70,16 +70,26 @@ fn part2(input: &str) -> Result<String, String> {
 }
 
 fn paint_fft(nodes: &mut HashMap<&str, Node<'_>>) {
+    let mut painted = HashSet::new();
     let mut fft_queue = VecDeque::from(["fft"]);
     while let Some(fft_key) = fft_queue.pop_front() {
+        if painted.contains(fft_key) {
+            continue;
+        }
+        painted.insert(fft_key);
         let fft_node = nodes.get_mut(fft_key).unwrap();
         fft_node.part_of_fft_chain = true;
         for fwd_ref in &fft_node.i_reference {
             fft_queue.push_back(fwd_ref);
         }
     }
+    painted.remove("fft");
     fft_queue.push_back("fft");
     while let Some(fft_key) = fft_queue.pop_front() {
+        if painted.contains(fft_key) {
+            continue;
+        }
+        painted.insert(fft_key);
         let fft_node = nodes.get_mut(fft_key).unwrap();
         fft_node.part_of_fft_chain = true;
         for bwd_ref in &fft_node.references_me {
@@ -89,16 +99,26 @@ fn paint_fft(nodes: &mut HashMap<&str, Node<'_>>) {
 }
 
 fn paint_dac(nodes: &mut HashMap<&str, Node<'_>>) {
+    let mut painted = HashSet::new();
     let mut dac_queue = VecDeque::from(["dac"]);
     while let Some(dac_key) = dac_queue.pop_front() {
+        if painted.contains(dac_key) {
+            continue;
+        }
+        painted.insert(dac_key);
         let dac_node = nodes.get_mut(dac_key).unwrap();
         dac_node.part_of_dac_chain = true;
         for fwd_ref in &dac_node.i_reference {
             dac_queue.push_back(fwd_ref);
         }
     }
+    painted.remove("dac");
     dac_queue.push_back("dac");
     while let Some(dac_key) = dac_queue.pop_front() {
+        if painted.contains(dac_key) {
+            continue;
+        }
+        painted.insert(dac_key);
         let dac_node = nodes.get_mut(dac_key).unwrap();
         dac_node.part_of_dac_chain = true;
         for fwd_ref in &dac_node.references_me {
